@@ -1,6 +1,8 @@
 use deadpool::managed::Object;
-use diesel_async::pooled_connection::AsyncDieselConnectionManager;
-use diesel_async::{pooled_connection::deadpool::Pool, AsyncPgConnection};
+use diesel_async::{
+    pooled_connection::{deadpool::Pool, AsyncDieselConnectionManager},
+    AsyncPgConnection,
+};
 use std::env;
 use std::sync::OnceLock;
 
