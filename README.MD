@@ -7,3 +7,9 @@
 - Video: <https://www.youtube.com/watch?v=aXBBZRkATYQ>
 
 - Github: <https://github.com/LangPham/sms/tree/db_01>
+
+### Video 02: diesel relations
+
+- Video: <https://www.youtube.com/watch?v=a4DBZyOrqlA>
+
+- Github: <https://github.com/LangPham/sms/tree/db_02>
