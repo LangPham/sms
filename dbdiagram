@@ -1,0 +1,105 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+// https://dbdiagram.io/d/64e48aff02bd1c4a5e30ab95
+
+
+Table peoples {
+  id uuid [primary key]
+  name varchar [not null]
+  birthday date [not null]
+  birthplace varchar [not null]
+  inserted_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+}
+
+Table brands {
+  id varchar [primary key]
+  name varchar [not null]
+  inserted_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+}
+
+enum EStatus {
+    ACTIVE
+    ARCHIVE
+    DRAFT    
+    DELETE
+}
+
+enum EClassType {
+    MAIN
+    EXTRA
+}
+
+
+Table campuses {
+  id uuid [primary key]
+  brand_id varchar [ref: > brands.id]
+  status EStatus [not null]
+  name varchar [not null]
+  address varchar [not null]
+  inserted_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+  indexes {
+    brand_id [name: 'campuses_brand_id_idx']
+    status [name: 'campuses_status_idx']
+  }
+}
+
+Table classes {
+  id uuid [primary key]
+  status EStatus [not null]
+  campus_id uuid [not null, ref: > campuses.id]
+  name varchar [not null]
+  class_type EClassType [not null]
+  learn_year varchar [not null]  
+  inserted_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+  indexes {
+    campus_id [name: 'classes_campus_id_idx']
+    status [name: 'classes_status_idx']
+    class_type [name: 'classes_class_type_idx']
+  }
+}
+
+Table students {
+  id uuid [primary key]
+  status EStatus [not null]
+  people_id uuid [not null, ref: > peoples.id]
+  inserted_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+}
+
+Table account {
+  id uuid [primary key]
+  username varchar [not null]
+  email varchar [not null]
+  student_id uuid [not null,  ref: > students.id]
+  human_id uuid [not null, ref: > peoples.id]
+  role varchar [note: 'father, mother, self']
+  inserted_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+}
+
+Table people_rel {
+  id uuid [primary key]
+  human_id uuid [not null, ref: > peoples.id]
+  human_rel_id uuid [not null, ref: > peoples.id]
+  name varchar  [not null]
+  inserted_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+  indexes {
+      (human_id, human_rel_id) [pk]
+  }
+}
+
+Table student_class { 
+  id uuid [primary key] 
+  student_id uuid [not null, ref: > students.id]
+  status EStatus [not null]
+  class_id uuid [not null, ref: > classes.id]
+  join_at date [not null]
+  leave_at date
+  inserted_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+}
