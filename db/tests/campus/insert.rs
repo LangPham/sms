@@ -3,8 +3,8 @@ use fake::Fake;
 
 #[tokio::test]
 async fn insert() {
-    use fake::faker::name::raw::*;    
     use fake::faker::address::raw::CityName;
+    use fake::faker::name::raw::*;
     use fake::locales::*;
 
     let name: String = Name(EN).fake();

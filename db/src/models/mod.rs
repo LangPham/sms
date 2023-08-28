@@ -9,5 +9,3 @@ pub use self::campus::{Campus, CampusInput};
 
 mod custom_type;
 pub use self::custom_type::*;
-
-

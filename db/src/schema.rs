@@ -43,8 +43,4 @@ diesel::table! {
 
 diesel::joinable!(campuses -> brands (brand_id));
 
-diesel::allow_tables_to_appear_in_same_query!(
-    brands,
-    campuses,
-    peoples,
-);
+diesel::allow_tables_to_appear_in_same_query!(brands, campuses, peoples,);

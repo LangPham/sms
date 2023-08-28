@@ -1,16 +1,24 @@
 use crate::schema::sql_types::EStatus;
-use diesel::{deserialize::{FromSql, FromSqlRow}, pg::Pg, serialize::{IsNull, Output, ToSql}, sql_types::SqlType, expression::AsExpression};
+use diesel::{
+    deserialize::{FromSql, FromSqlRow},
+    expression::AsExpression,
+    pg::Pg,
+    serialize::{IsNull, Output, ToSql},
+    sql_types::SqlType,
+};
 use serde::{Deserialize, Serialize};
 use std::io::Write;
 
-#[derive(SqlType, Debug, Default, Clone, Serialize, Deserialize, PartialEq, FromSqlRow, AsExpression)]
+#[derive(
+    SqlType, Debug, Default, Clone, Serialize, Deserialize, PartialEq, FromSqlRow, AsExpression,
+)]
 #[diesel(sql_type = EStatus)]
 pub enum StatusEnum {
     #[default]
     Draft,
     Active,
     Deleted,
-    Archive   
+    Archive,
 }
 
 impl ToSql<EStatus, Pg> for StatusEnum {
@@ -26,7 +34,9 @@ impl ToSql<EStatus, Pg> for StatusEnum {
 }
 
 impl FromSql<EStatus, Pg> for StatusEnum {
-    fn from_sql(bytes: <Pg as diesel::backend::Backend>::RawValue<'_>) -> diesel::deserialize::Result<Self> {
+    fn from_sql(
+        bytes: <Pg as diesel::backend::Backend>::RawValue<'_>,
+    ) -> diesel::deserialize::Result<Self> {
         match bytes.as_bytes() {
             b"ACTIVE" => Ok(StatusEnum::Active),
             b"DRAFT" => Ok(StatusEnum::Draft),
@@ -35,5 +45,4 @@ impl FromSql<EStatus, Pg> for StatusEnum {
             _ => Err("Unrecognized enum variant".into()),
         }
     }
-    
 }
