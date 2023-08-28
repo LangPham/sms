@@ -1,0 +1,3 @@
+-- This file should undo anything in `up.sql`
+DROP TABLE IF EXISTS classes;
+DROP TYPE IF EXISTS "EClassType";

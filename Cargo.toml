@@ -1,5 +1,6 @@
 [workspace]
 members =["db"]
+resolver = "2"
 
 [workspace.dependencies]
 diesel = { version = "2.1.0", features = ["postgres", "chrono", "uuid"] }
