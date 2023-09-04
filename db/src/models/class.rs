@@ -9,6 +9,7 @@ use uuid::Uuid;
 #[derive(Debug, Queryable, Selectable, QueryId, Identifiable, Deserialize, Serialize)]
 #[diesel(table_name = crate::schema::classes)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
+#[diesel(belongs_to(Campus, foreign_key = campus_id))]
 pub struct Class {
     pub id: Uuid,
     pub status: StatusEnum,

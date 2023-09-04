@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Queryable, Selectable, QueryId, Identifiable, Deserialize, Serialize)]
 #[diesel(table_name = crate::schema::brands)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
+
 pub struct Brand {
     pub id: String,
     pub name: String,

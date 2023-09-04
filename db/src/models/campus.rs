@@ -10,6 +10,7 @@ use super::custom_type::StatusEnum;
 #[derive(Debug, Queryable, Selectable, QueryId, Identifiable, Deserialize, Serialize)]
 #[diesel(table_name = crate::schema::campuses)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
+#[diesel(belongs_to(Brand, foreign_key = brand_id))]
 pub struct Campus {
     pub id: Uuid,
     pub brand_id: String,

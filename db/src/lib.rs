@@ -6,6 +6,6 @@ pub(crate) mod services;
 pub mod prelude {
     pub use crate::{
         models::*,
-        services::{svc_brand, svc_campus, svc_people, svc_student, svc_class, svc_student_class},
+        services::{svc_brand, svc_campus, svc_class, svc_people, svc_student, svc_student_class},
     };
 }
